@@ -4,42 +4,85 @@
 }
 
 .content {
+  position: relative;
   max-width: 1100px;
   margin: 0 auto;
-  height: 64px;
+  height: 4rem;
+  flex-flow: nowrap;
+  overflow: hidden;
+}
+
+.unordered_list {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
+.vertical_menu {
+  width: 10rem;
 }
 
 .left {
-  height: 40px;
-  display: flex;
-  align-items: flex-end;
+  height: 2rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .logo_wrapper {
   display: inline-block;
-  height: 40px;
+  height: 2rem;
   overflow: hidden;
+  vertical-align: top;
 }
 
 .logo {
-  font-size: 160px;
-  height: 40px;
-  line-height: 40px;
+  display: inline-block;
+  height: 2rem;
+  line-height: 2.5rem;
   cursor: pointer;
 }
 
 .slogan {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #999;
-  margin-left: 16px;
+  margin-left: 1rem;
+  line-height: 2.5rem;
 }
 
 .right {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
 }
 
 .menu {
   border: none;
 }
+
+@media only screen and (max-width: 767.99px) {
+  .left {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .left {
+    text-align: left;
+    margin-left: 1rem;
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  .slogan {
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+

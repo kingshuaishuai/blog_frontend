@@ -1,17 +1,18 @@
 import * as LocalIcon from '@ant-design/icons';
 import { createFromIconfontCN, HomeOutlined } from '@ant-design/icons';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ComponentType } from 'react';
 import { IconFontProps } from '@ant-design/icons/lib/components/IconFont';
+import { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon';
 
 type CommonIconProps = {
   style?: CSSProperties;
   spin?: boolean;
   rotate?: number;
+  className?: string;
 }
 
 type AntIconProps = {
   type: string;
-  className?: string;
   twoToneColor?: string
 } & CommonIconProps
 
@@ -29,7 +30,11 @@ AntIcon.defaultProps = {
   spin: false
 }
 
-const IconFont:React.SFC<IconFontProps> = createFromIconfontCN({
+type CustomIconFontProps = {
+  component?: ComponentType<CustomIconComponentProps> 
+} & CommonIconProps;
+
+const IconFont:React.SFC<CustomIconFontProps> = createFromIconfontCN({
   scriptUrl: [
     '//at.alicdn.com/t/font_1932420_gv5s5pemjpp.js'
   ]
@@ -46,8 +51,12 @@ const Icon: React.FC<IconProps> = (props) => {
     twoToneColor,
     ...commonProps
   }
+  const iconFontProps = {
+    className,
+    ...commonProps
+  }
 
-  return iconfont ? <IconFont { ...commonProps }/> : <AntIcon { ...antIconProps}/>;
+  return iconfont ? <IconFont { ...iconFontProps }/> : <AntIcon { ...antIconProps}/>;
 }
 
 Icon.defaultProps = {
