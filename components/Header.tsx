@@ -60,12 +60,10 @@ const Header: React.FC<HeaderProps> = (props) => {
             </Popover>
         }
         <Col className={headerStyles.left} xs={24} sm={24} md={7}>
-          <span className={headerStyles.logo_wrapper}>
-            <Link href="/">
-              <img className={headerStyles.logo} src="/Logo.svg" alt="Geekrole"/>
-            </Link>
-          </span>
-          <span className={headerStyles.slogan}>让追求极致刻于灵魂深处!</span>
+          <Link href="/">
+            <img className={headerStyles.logo} src="/Logo.svg" alt="Geekrole"/>
+          </Link>
+          <div className={headerStyles.slogan}>让追求极致刻于灵魂深处!</div>
         </Col>
         <Col className={headerStyles.right} xs={0} sm={0} md={17}>
           {

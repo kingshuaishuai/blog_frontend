@@ -4,7 +4,7 @@ export function useWindowWidth() {
   // global.document 判断是否为client-side
   if (typeof global.document === 'undefined') {
     return {
-      windowWidth: 0
+      windowWidth: 1200
     };
   }
   
