@@ -1,0 +1,45 @@
+.container {
+  box-shadow: 0 2px 10px #eee;
+  background-color: #fff;
+}
+
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 64px;
+}
+
+.left {
+  height: 40px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.logo_wrapper {
+  display: inline-block;
+  height: 40px;
+  overflow: hidden;
+}
+
+.logo {
+  font-size: 160px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.slogan {
+  font-size: 12px;
+  color: #999;
+  margin-left: 16px;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menu {
+  border: none;
+}
