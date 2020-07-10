@@ -1,12 +1,23 @@
 import { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import Header, { MenuKeys } from '@/components/Header';
 import 'antd/dist/antd.css';
-import '../styles/common/index.scss';
+import '@/styles/common/index.scss';
+import { navRoutes } from '@/utils/helper';
 
 const App: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props;
-  console.log('page props', pageProps);
+  const router = useRouter();
+  let baseRoute = router.pathname.slice(1).split('/')[0];
+  if (baseRoute === '') {
+    baseRoute = 'home';
+  }
+  console.log('baseRoute is: ', baseRoute);
   return (
-    <Component {...pageProps} />
+    <>
+      {navRoutes.includes(baseRoute) && <Header defaultKey={baseRoute as MenuKeys} />}
+      <Component {...pageProps} />
+    </>
   )
 }
 

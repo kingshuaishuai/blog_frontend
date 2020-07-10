@@ -12,7 +12,6 @@ const Home: React.FC<HomeProps> = (props) => {
         <title>home</title>
         
       </Head>
-      <Header defaultKey="home"/>
     </div>
   )
 }

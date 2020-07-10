@@ -7,11 +7,11 @@ type AboutProps = {
 }
 const About: React.FC<AboutProps> = (props) => {
   return (
-    <div className="home">
+    <div className="about">
       <Head>
         <title>About</title>
       </Head>
-      <Header defaultKey="about"/>
+      about
     </div>
   )
 }

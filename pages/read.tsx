@@ -11,7 +11,6 @@ const Read: React.FC<ReadProps> = (props) => {
       <Head>
         <title>open source</title>
       </Head>
-      <Header defaultKey="read"/>
     </div>
   )
 }

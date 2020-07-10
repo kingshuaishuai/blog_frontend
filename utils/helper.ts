@@ -1,0 +1,1 @@
+export const navRoutes = [ 'home', 'blog', 'read', 'open-source', 'about'];

@@ -3,7 +3,7 @@ import { Row, Col, Menu, Popover } from 'antd';
 import classNames from 'classnames';
 import Icon from './Icon';
 import { useWindowWidth } from '../hooks/useWindowWidth';
-import headerStyles from '../styles/components/Header.module.scss';
+import headerStyles from '@/styles/components/Header.module.scss';
 import { MenuMode } from 'antd/lib/menu';
 
 enum menuKeys {
@@ -14,9 +14,10 @@ enum menuKeys {
   ABOUT = 'about'
 }
 
+export type MenuKeys = 'home' | 'blog' | 'read' | 'open-source' | 'about';
 
 type MenuCompProps = {
-  defaultKey: 'home' | 'blog' | 'read' | 'open-source' | 'about';
+  defaultKey: MenuKeys;
   mode: MenuMode,
   className?: string
 }
@@ -26,11 +27,11 @@ const MenuComp: React.FC<MenuCompProps> = (props) => {
   const classes = classNames(className, headerStyles.menu)
   return (
     <Menu overflowedIndicator={<Icon type="MenuOutlined" />} defaultSelectedKeys={[defaultKey]} className={classes} mode={mode}>
-      <Menu.Item key={menuKeys.HOME}><Link href="/"><a><Icon type="HomeOutlined"/>首页</a></Link></Menu.Item>
-      <Menu.Item key={menuKeys.BLOG}><Link href="/blog"><a><Icon type="icon-blog" iconfont />博客</a></Link></Menu.Item>
-      <Menu.Item key={menuKeys.READ}><Link href="/read"><a><Icon type="ReadOutlined" />专栏</a></Link></Menu.Item>
-      <Menu.Item key={menuKeys.OPEN_SOURCE}><Link href="/open-source"><a><Icon type="icon-repository" iconfont />开源项目</a></Link></Menu.Item>
-      <Menu.Item key={menuKeys.ABOUT}><Link href="/about"><a><Icon type="InfoCircleOutlined" />关于</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.HOME}><Link href="/" passHref><a><Icon type="HomeOutlined"/>首页</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.BLOG}><Link href="/blog" passHref><a><Icon type="icon-blog" iconfont />博客</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.READ}><Link href="/read" passHref><a><Icon type="ReadOutlined" />专栏</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.OPEN_SOURCE}><Link href="/open-source" passHref><a><Icon type="icon-repository" iconfont />开源项目</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.ABOUT}><Link href="/about" passHref><a><Icon type="InfoCircleOutlined" />关于</a></Link></Menu.Item>
     </Menu>
   )
 }

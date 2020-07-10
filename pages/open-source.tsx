@@ -11,7 +11,6 @@ const OpenSource: React.FC<OpenSourceProps> = (props) => {
       <Head>
         <title>open source</title>
       </Head>
-      <Header defaultKey="open-source"/>
     </div>
   )
 }
