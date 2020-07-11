@@ -1,0 +1,17 @@
+.unordered_popover {
+  .ant-popover-inner-content {
+    padding: 0 !important;
+  }
+}
+
+.list-header-radio-group {
+  .ant-radio-button-wrapper {
+    padding-left: 0;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    &::before {
+      display: none;
+    }
+  }
+}

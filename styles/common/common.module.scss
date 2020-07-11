@@ -1,0 +1,32 @@
+@mixin commonBox() {
+  padding: 0 0.8rem !important;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+.box {
+  @include commonBox();
+  margin: 1rem 0 !important;
+}
+
+.right_box {
+  @include commonBox();
+  margin: 1rem 0 1rem 1rem;
+  padding: 0.5rem !important;
+}
+
+.page {
+  padding: 0 0.5rem;
+}
+
+@media only screen and (max-width: 767.99px) {
+  .box {
+    border-radius: 0.25rem;
+    margin: 0.5rem 0 !important;
+  }
+  .right_box {
+    border-radius: 0.25rem;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+  }
+}

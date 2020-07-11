@@ -5,7 +5,7 @@
 
 .content {
   position: relative;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   height: 4rem;
   flex-flow: nowrap;
@@ -62,29 +62,8 @@
   border-bottom: none!important;
 }
 
-@media only screen and (max-width: 767.99px) {
-  .left {
-    text-align: center;
-  }
-}
-
-@media only screen and (max-width: 375px) {
-  .left {
-    text-align: left;
-  }
-}
-
 @media only screen and (max-width: 374px) {
   .slogan {
     display: none;
   }
 }
-
-
-
-
-
-
-
-
-
