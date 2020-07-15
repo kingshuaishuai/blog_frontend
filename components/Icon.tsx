@@ -36,7 +36,7 @@ type CustomIconFontProps = {
 
 const IconFont:React.SFC<CustomIconFontProps> = createFromIconfontCN({
   scriptUrl: [
-    '//at.alicdn.com/t/font_1932420_iswrnywad1k.js'
+    '//at.alicdn.com/t/font_1932420_63nd7uqbkbr.js'
   ]
 })
 

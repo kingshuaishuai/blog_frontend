@@ -15,3 +15,36 @@
     }
   }
 }
+
+.common-list {
+  .ant-list-header {
+    border-bottom: none;
+    .ant-tabs {
+      .ant-tabs-nav {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.common-card {
+  .ant-card-cover {
+    height: 0;
+    padding-bottom: 50%;
+    overflow: hidden;
+  }
+}
+// list item 样式覆盖
+.ant-list-item-main {
+  min-width: 65%;
+}
+.ant-list-item-extra {
+  overflow: hidden;
+}
+.ant-list-item-meta {
+  .ant-list-item-meta-content {
+    .ant-list-item-meta-title {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

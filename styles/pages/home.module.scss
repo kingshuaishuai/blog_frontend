@@ -8,8 +8,7 @@
 
 .banner {
   margin-top: 1rem;
-  position: relative;
-  z-index: 1; // 解决ios overflow: hidden失效问题
+  @include fixIOSBorderRadius();
   cursor: pointer;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -26,9 +25,14 @@
   display: flex !important;
   flex-direction: column;
 }
+.opensource_title {
+  display: none;
+  margin: 0.5em 0;
+  padding-left: 0.5rem;
+}
 
 .opensource_item {
-  position: relative;
+  @include fixIOSBorderRadius();
   border-radius: 0.5rem;
   flex: 1;
   overflow: hidden;
@@ -124,7 +128,6 @@
   border-radius: 0.25rem;
 }
 
-
 @media only screen and (max-width: 1200px) {
   .carousel {
     height: calc(100vw / 3);
@@ -137,16 +140,7 @@
   }
 }
 
-@media only screen and (max-width: 767.99px) {
-  .opensource_recommend {
-    height: 25vw;
-    flex-direction: row;
-    padding: 0;
-    margin-top: 0.5rem;
-  }
-  .opensource_item:first-child {
-    margin: 0 0.5rem 0 0;
-  }
+@media only screen and (max-width: 767.9px) {
   .banner {
     margin-top: 0.5rem;
   }
@@ -158,6 +152,18 @@
   }
   .carousel_item {
     height: 50vw;
+  }
+  .opensource_recommend {
+    height: 25vw;
+    flex-direction: row;
+    padding: 0;
+    margin-top: 0.5rem;
+  }
+  .opensource_title {
+    display: block;
+  }
+  .opensource_item:first-child {
+    margin: 0 0.5rem 0 0;
   }
 }
 

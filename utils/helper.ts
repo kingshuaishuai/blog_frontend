@@ -1,1 +1,1 @@
-export const navRoutes = [ 'home', 'blog', 'read', 'open-source', 'about'];
+export const navRoutes = [ 'home', 'blog', 'column', 'open-source', 'about'];

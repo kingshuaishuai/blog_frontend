@@ -1,17 +1,130 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Carousel, List, Empty, Row, Col, Radio } from 'antd';
+import { Carousel, List, Empty, Row, Col, Radio, Card, Tabs, Avatar, Tag, Space } from 'antd';
 import classNames from 'classnames';
 import Icon from '@/components/Icon';
 import homeStyles from '../styles/pages/home.module.scss';
 import commonStyles from '@/styles/common/common.module.scss';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 type HomeProps = {
 
 }
+
+const IconText: React.FC<{icon: string, text: string | number, iconfont?: boolean}> = ({icon, text, iconfont}) => (
+  <Space>
+    <Icon type={icon} iconfont={iconfont}/>
+    {text}
+  </Space>
+);
+
+IconText.defaultProps = {
+  iconfont: false
+}
+
 const Home: React.FC<HomeProps> = (props) => {
-  const carouselRef = useRef<Carousel>()
+  const carouselRef = useRef<Carousel>();
+
+  const columnList = [
+    {
+      id: 0,
+      name: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '4.jpg',
+      category: '前端'
+    },
+    {
+      id: 2,
+      name: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '3.jpg',
+      category: '前端'
+    },
+    {
+      id: 3,
+      name: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '5.jpg',
+      category: '前端'
+    }
+  ]
+  const columnCategories = [
+    {
+      key: 'hot',
+      tab: '热门专栏'
+    },
+    {
+      key: 'new',
+      tab: '最新专栏'
+    }
+  ]
+
+  const blogCategories = [
+    {
+      key: 'new',
+      tab: '最新博客'
+    },
+    {
+      key: 'hot',
+      tab: '热门博客'
+    }
+  ]
+  const [columnKey, setColumnKey] = useState('hot');
+  const [blogKey, setBlogKey] = useState('new');
+
+  const postList = [
+    {
+      id: 0,
+      title: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '1.jpg',
+      category: '前端',
+      tags: ['next.js', 'typescript', 'graphql', 'apollo', 'ssr', '博客'],
+      public_date: '2020-07-20 10:00:10',
+      author: '一帅同学',
+      star: 1000,
+      read: 20000,
+    },
+    {
+      id: 1,
+      title: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '3.jpg',
+      category: '前端',
+      tags: ['next.js', 'typescript', 'graphql', 'apollo', 'ssr', '博客'],
+      public_date: '2020-07-20 10:00:10',
+      author: '一帅同学',
+      star: 1000,
+      read: 20000,
+    },
+    {
+      id: 2,
+      title: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '4.jpg',
+      category: '前端',
+      tags: ['next.js', 'typescript', 'graphql', 'apollo', 'ssr', '博客'],
+      public_date: '2020-07-20 10:00:10',
+      author: '一帅同学',
+      star: 1000,
+      read: 20000,
+    },
+    {
+      id: 3,
+      title: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
+      cover_img: '5.jpg',
+      category: '前端',
+      tags: ['next.js', 'typescript', 'graphql', 'apollo', 'ssr', '博客'],
+      public_date: '2020-07-20 10:00:10',
+      author: '一帅同学',
+      star: 1000,
+      read: 20000,
+    }
+  ]
+  const handleColumnChange = (val) => {
+    console.log('change', val)
+  }
   return (
     <>
       <Head>
@@ -42,38 +155,118 @@ const Home: React.FC<HomeProps> = (props) => {
             <Icon type="icon-enter" iconfont/>
           </span>
         </Col>
-        <Col className={homeStyles.opensource_recommend} xs={24} sm={24} md={8}>
-          <div className={homeStyles.opensource_item}>
-            <img className={homeStyles.opensource_img} src="3.jpg"/>
-            <div className={homeStyles.img_mask}></div>
-          </div>
-          <div className={homeStyles.opensource_item}>
-            <img className={homeStyles.opensource_img} src="4.jpg"/>
-            <div className={homeStyles.img_mask}></div>
+        <Col xs={24} sm={24} md={8}>
+          <h3 className={homeStyles.opensource_title}>精选开源</h3>
+          <div className={homeStyles.opensource_recommend}>
+            <div className={homeStyles.opensource_item}>
+              <img className={homeStyles.opensource_img} src="3.jpg"/>
+              <div className={homeStyles.img_mask}></div>
+            </div>
+            <div className={homeStyles.opensource_item}>
+              <img className={homeStyles.opensource_img} src="4.jpg"/>
+              <div className={homeStyles.img_mask}></div>
+            </div>
           </div>
         </Col>
       </Row>
       <Row className={commonStyles.page}>
         <Col xs={24} sm={24} md={18} >
-          <List 
-            className={commonStyles.box}
-            header="精选专栏"
-            locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
-          />
-          <List 
-            className={commonStyles.box}
+          <List
+            grid={{
+              gutter: 8,
+              xs: 1,
+              sm: 2,
+              md: 2,
+              lg: 3,
+              xl: 3,
+              xxl: 3,
+            }}
+            itemLayout="horizontal"
+            dataSource={columnList}
+            className={classNames(commonStyles.box, 'common-list')}
             header={
-              <Radio.Group defaultValue="a" className="list-header-radio-group">
-                <Radio.Button type="link" value="a">最新博客</Radio.Button>
-                <Radio.Button type="link" value="b">最热博客</Radio.Button>
-              </Radio.Group>
+              <Tabs defaultActiveKey={columnKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/column" passHref><a>更多</a></Link>}>
+                {
+                  columnCategories.map(item => (
+                    <Tabs.TabPane tab={item.tab} key={item.key} />
+                  ))
+                }
+              </Tabs>
+            }
+            locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
+            renderItem={column => (
+              <List.Item
+                key={column.id}
+              >
+                <Card
+                  hoverable
+                  className="common-card"
+                  cover={<img alt={column.name} src={column.cover_img} />}
+                >
+                  <Card.Meta title={
+                    <div className={commonStyles.card_title}>
+                      <Tag color="blue">{column.category}</Tag>
+                      {column.name}
+                    </div>
+                  } description={column.description} />
+                </Card>
+              </List.Item>
+            )}
+          />
+          <List
+            itemLayout="vertical"
+            className={classNames(commonStyles.box, 'common-list')}
+            header={
+              <Tabs defaultActiveKey={blogKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/blog" passHref><a>更多</a></Link>}>
+                {
+                  blogCategories.map(item => (
+                    <Tabs.TabPane tab={item.tab} key={item.key} />
+                  ))
+                }
+              </Tabs>
+            }
+            dataSource={postList}
+            renderItem={
+              post => (
+                <List.Item
+                  key={post.id}
+                  extra={
+                    <div className={commonStyles.blog_cover}>
+                      <img src={post.cover_img} alt={post.title}/>
+                    </div>
+                  }
+                  actions={[
+                    <IconText icon="FireOutlined" text={post.read} />,
+                    <IconText icon="HeartOutlined" text={post.star} />,
+                  ]}
+                >
+                  <List.Item.Meta
+                    title={
+                      <>
+                        <Tag color="blue">{post.category}</Tag>
+                        {post.title}
+                      </>
+                    } 
+                    description={
+                      <>
+                        <div style={{padding: '0.25rem 0'}}>
+                          <Space>
+                            <IconText icon="UserOutlined" text={post.author} />
+                            <IconText icon="icon-date" iconfont text={post.public_date} />
+                          </Space>
+                        </div>
+                        {post.description}
+                      </>
+                    } />
+                </List.Item>
+              )
             }
             locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
           />
         </Col>
         <Col xs={0} sm={0} md={6}>
           <div className={commonStyles.right_box}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit quo, possimus dicta, omnis consequatur quibusdam repellat voluptatibus doloribus laudantium inventore vitae dolore. Temporibus atque, quis hic inventore optio voluptas aspernatur.
+            <Avatar src="avatar.png" size={64} />
           </div>
         </Col>
       </Row>
