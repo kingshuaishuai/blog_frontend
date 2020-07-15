@@ -1,3 +1,4 @@
+@import './variables';
 .unordered_popover {
   .ant-popover-inner-content {
     padding: 0 !important;
@@ -34,17 +35,50 @@
   }
 }
 // list item 样式覆盖
-.ant-list-item-main {
-  min-width: 65%;
+.blog-list {
+  .ant-list-item-main {
+    min-width: 65%;
+  }
+  .ant-list-item-extra {
+    min-width: calc(35% - 40px);
+    width: 100%;
+    overflow: hidden;
+  }
+  .ant-list-item-meta {
+    .ant-list-item-meta-content {
+      .ant-list-item-meta-title {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }
-.ant-list-item-extra {
-  overflow: hidden;
+
+.column-list {
+  .ant-list-item {
+    flex-flow: row-reverse;
+    .ant-list-item-extra {
+      max-width: 7.5rem;
+      min-width: 4rem;
+      margin: 0 1rem 0 0 !important;
+      flex: 0 0 20%;
+    }
+  }
 }
-.ant-list-item-meta {
-  .ant-list-item-meta-content {
-    .ant-list-item-meta-title {
-      display: flex;
-      align-items: center;
+
+@media only screen and (max-width: 576px) {
+  .column-list {
+    .ant-list-item-main {
+      min-width: auto;
+      .ant-list-item-meta-title {
+        font-size: 0.875rem!important;
+        margin-bottom: 0.25rem;
+        @include ellipsis();
+      }
+      .ant-list-item-meta-description {
+        @include multi-line-ellipsis();
+        font-size: 0.75rem!important;
+      }
     }
   }
 }

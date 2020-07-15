@@ -5,14 +5,14 @@ import classNames from 'classnames';
 import Icon from '@/components/Icon';
 import homeStyles from '../styles/pages/home.module.scss';
 import commonStyles from '@/styles/common/common.module.scss';
-import { useRef, useState } from 'react';
+import { useRef, useState, CSSProperties } from 'react';
 
 type HomeProps = {
 
 }
 
-const IconText: React.FC<{icon: string, text: string | number, iconfont?: boolean}> = ({icon, text, iconfont}) => (
-  <Space>
+const IconText: React.FC<{icon: string, text: string | number, className: string, style?: CSSProperties, iconfont?: boolean}> = ({icon, text, style, className, iconfont}) => (
+  <Space style={style} className={className}>
     <Icon type={icon} iconfont={iconfont}/>
     {text}
   </Space>
@@ -28,24 +28,27 @@ const Home: React.FC<HomeProps> = (props) => {
   const columnList = [
     {
       id: 0,
-      name: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      title: 'TS + Next.js实战博客前端页面',
       description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
       cover_img: '4.jpg',
-      category: '前端'
+      category: '前端',
+      author: 'kingShuaishuai'
     },
     {
       id: 2,
-      name: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      title: 'TS + Next.js9.4 + Apollo实战博客前端页面',
       description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
       cover_img: '3.jpg',
-      category: '前端'
+      category: '前端',
+      author: 'kingShuaishuai'
     },
     {
       id: 3,
-      name: 'TS + Next.js9.4 + Apollo实战博客前端页面',
+      title: 'TS + Next.js9.4 + Apollo实战博客前端页面',
       description: '本专栏通过介绍Typescript + Next.js9.4 + Apollo带领各位希望实战博客前端页面',
       cover_img: '5.jpg',
-      category: '前端'
+      category: '前端',
+      author: 'kingShuaishuai'
     }
   ]
   const columnCategories = [
@@ -172,18 +175,9 @@ const Home: React.FC<HomeProps> = (props) => {
       <Row className={commonStyles.page}>
         <Col xs={24} sm={24} md={18} >
           <List
-            grid={{
-              gutter: 8,
-              xs: 1,
-              sm: 2,
-              md: 2,
-              lg: 3,
-              xl: 3,
-              xxl: 3,
-            }}
-            itemLayout="horizontal"
+            itemLayout="vertical"
             dataSource={columnList}
-            className={classNames(commonStyles.box, 'common-list')}
+            className={classNames(commonStyles.box, 'common-list', 'column-list')}
             header={
               <Tabs defaultActiveKey={columnKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/column" passHref><a>更多</a></Link>}>
                 {
@@ -197,25 +191,27 @@ const Home: React.FC<HomeProps> = (props) => {
             renderItem={column => (
               <List.Item
                 key={column.id}
+                extra={
+                  <div className={commonStyles.column_cover}>
+                    <img src={column.cover_img} alt={column.title} />
+                  </div>
+                }
               >
-                <Card
-                  hoverable
-                  className="common-card"
-                  cover={<img alt={column.name} src={column.cover_img} />}
-                >
-                  <Card.Meta title={
-                    <div className={commonStyles.card_title}>
-                      <Tag color="blue">{column.category}</Tag>
-                      {column.name}
-                    </div>
-                  } description={column.description} />
-                </Card>
+                <List.Item.Meta 
+                  title={column.title}
+                  description={
+                    <>
+                      <IconText style={{ marginBottom: '0.25rem' }} icon="UserOutlined" text={column.author}></IconText>
+                      <div>{column.description}</div>
+                    </>
+                  }
+                />
               </List.Item>
             )}
           />
           <List
             itemLayout="vertical"
-            className={classNames(commonStyles.box, 'common-list')}
+            className={classNames(commonStyles.box, 'common-list', 'blog-list')}
             header={
               <Tabs defaultActiveKey={blogKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/blog" passHref><a>更多</a></Link>}>
                 {
