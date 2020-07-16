@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Carousel, List, Empty, Row, Col, Radio, Card, Tabs, Avatar, Tag, Space } from 'antd';
+import { Carousel, List, Empty, Row, Col, Radio, Card, Tabs, Avatar, Tag, Space, Divider } from 'antd';
 import classNames from 'classnames';
 import Icon from '@/components/Icon';
 import homeStyles from '../styles/pages/home.module.scss';
@@ -11,7 +11,7 @@ type HomeProps = {
 
 }
 
-const IconText: React.FC<{icon: string, text: string | number, className: string, style?: CSSProperties, iconfont?: boolean}> = ({icon, text, style, className, iconfont}) => (
+const IconText: React.FC<{icon: string, text: string | number, className?: string, style?: CSSProperties, iconfont?: boolean}> = ({icon, text, style, className, iconfont}) => (
   <Space style={style} className={className}>
     <Icon type={icon} iconfont={iconfont}/>
     {text}
@@ -127,6 +127,41 @@ const Home: React.FC<HomeProps> = (props) => {
   ]
   const handleColumnChange = (val) => {
     console.log('change', val)
+  }
+  const author = {
+    avatar: 'avatar.png',
+    username: '一帅同学',
+    description: '不做cv搬运工，不是自己的cv过来还是别人的.',
+    tags: [
+      { color: 'magenta', value: '月亮不睡我不睡'},
+      { color: 'volcano', value: '我是秃头小宝贝'},
+      { color: 'red', value: '红红'},
+      { color: 'orange', value: '火火'},
+      { color: 'gold', value: '前端'},
+      { color: 'lime', value: '全栈'},
+      { color: 'green', value: 'vue'},
+      { color: 'blue', value: 'react'},
+      { color: 'cyan', value: '呕吼'},
+      { color: 'geekblue', value: 'geekrole'},
+      { color: 'purple', value: '紫色'}
+    ],
+    contact: [
+      {
+        channel: 'github',
+        icon: 'GithubOutlined',
+        link: ''
+      },
+      {
+        channel: 'qq',
+        icon: 'QqOutlined',
+        link: ''
+      },
+      {
+        channel: 'wechat',
+        icon: 'WechatOutlined',
+        link: ''
+      }
+    ]
   }
   return (
     <>
@@ -261,9 +296,24 @@ const Home: React.FC<HomeProps> = (props) => {
           />
         </Col>
         <Col xs={0} sm={0} md={6}>
-          <div className={commonStyles.right_box}>
-            <Avatar src="avatar.png" size={64} />
+          <div className={classNames(commonStyles.right_box, commonStyles.author_info)}>
+            <Avatar src={author.avatar} size={96} />
+            <h4 style={{marginTop: '12px'}}>{author.username}</h4>
+            <p style={{textAlign: 'center', color: '#999'}}>{author.description}</p>
+            <Space className={commonStyles.tags}>
+              <Icon type="TagsOutlined" />
+              {author.tags.map(tag => <Tag key={tag.value} color={tag.color}>{tag.value}</Tag>)}
+            </Space>
+            <Divider>联系方式</Divider>
+            <Space style={{fontSize: '1.2rem'}}>
+              {
+                author.contact.map(item => (
+                  <Icon type={item.icon}/>
+                ))
+              }
+            </Space>
           </div>
+          
         </Col>
       </Row>
     </>
