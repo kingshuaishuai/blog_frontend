@@ -1,25 +1,51 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Carousel, List, Empty, Row, Col, Radio, Card, Tabs, Avatar, Tag, Space, Divider } from 'antd';
+import { Carousel, List, Empty, Row, Col, Radio, Card, Tabs, Avatar, Tag, Space, Divider, Affix } from 'antd';
+import InfiniteScroll from 'react-infinite-scroller';
 import classNames from 'classnames';
 import Icon from '@/components/Icon';
 import homeStyles from '../styles/pages/home.module.scss';
 import commonStyles from '@/styles/common/common.module.scss';
 import { useRef, useState, CSSProperties } from 'react';
+import { StringifyOptions } from 'querystring';
+import ScaleBox from '@/components/ScaleBox';
 
 type HomeProps = {
 
 }
 
-const IconText: React.FC<{icon: string, text: string | number, className?: string, style?: CSSProperties, iconfont?: boolean}> = ({icon, text, style, className, iconfont}) => (
+const IconText: React.FC<{icon: string, text: string | number, className?: string, style?: CSSProperties}> = ({icon, text, style, className, iconfont}) => (
   <Space style={style} className={className}>
-    <Icon type={icon} iconfont={iconfont}/>
+    <Icon type={icon}/>
     {text}
   </Space>
 );
 
-IconText.defaultProps = {
-  iconfont: false
+type CarouselItemProps = {
+  img: string;
+  link: string;
+  info?: {
+    title: StringifyOptions;
+    description: string;
+  }
+}
+
+const CarouselItem: React.FC<CarouselItemProps> = (props) => {
+  const { img, link, info } = props
+  return (
+    <div className={classNames(homeStyles.carousel_item)}>
+      <Link href={link}>
+        <img className={homeStyles.carousel_img} src={img} alt=""/>
+      </Link>
+      {
+        info && 
+        <div className={homeStyles.carousel_info}>
+          <h3 className={homeStyles.carousel_title}>{info.title}</h3>
+          <p className={homeStyles.carousel_desc}>{info.description}</p>
+        </div>
+      }
+    </div>
+  )
 }
 
 const Home: React.FC<HomeProps> = (props) => {
@@ -163,48 +189,60 @@ const Home: React.FC<HomeProps> = (props) => {
       }
     ]
   }
+  const [blogLoading, setBlogLoading] = useState(false);
+  const handleLoadMore = () => {
+    console.log("load more")
+  }
+  const banners = [
+    {
+      id: '1',
+      img: '1.jpg',
+      link: '/',
+      info: {
+        title: '手把手教你搭建博客',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit nam numquam ad ut beatae provident ipsam, officia culpa placeat illo blanditiis. Facilis enim maiores voluptatum nulla, dolore ratione deserunt.'
+      }
+    },
+    { id: '2', img: '2.png', link: '/'},
+    { id: '3', img: '3.jpg', link: '/'},
+    { id: '4', img: '4.jpg', link: '/'},
+    { id: '5', img: '5.jpg', link: '/'},
+  ]
   return (
     <>
       <Head>
         <title>GeekRole</title>
       </Head>
-      <Row className={commonStyles.page}>
-        <Col className={homeStyles.banner} xs={24} sm={24} md={16}>
+      <Row className={classNames(commonStyles.page, homeStyles.banner)}>
+        <Col xs={24} sm={24} md={16}>
+        <ScaleBox className={homeStyles.carousel_wrapper}>
           <Carousel ref={carouselRef} className={homeStyles.carousel}  dots={{className: 'carousel_dots'}} easing="ease-in-out">
-            <div className={homeStyles.carousel_item}>
-              <Link href="/">
-                <img className={homeStyles.carousel_img} src="1.jpg" alt=""/>
-              </Link>
-              <div className={homeStyles.carousel_info}>
-                <h3 className={homeStyles.carousel_title}>手把手教你搭建博客</h3>
-                <p className={homeStyles.carousel_desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit nam numquam ad ut beatae provident ipsam, officia culpa placeat illo blanditiis. Facilis enim maiores voluptatum nulla, dolore ratione deserunt.</p>
-              </div>
-            </div>
-            
-            <img className={homeStyles.carousel_item} src="2.png" alt=""/>
-            <img className={homeStyles.carousel_item} src="3.jpg" alt=""/>
-            <img className={homeStyles.carousel_item} src="4.jpg" alt=""/>
-            <img className={homeStyles.carousel_item} src="5.jpg" alt=""/>
+            {
+              banners.map(banner => <CarouselItem key={banner.id} img={banner.img} link={banner.link} info={banner.info || null}/>)
+            }
           </Carousel>
           <span onClick={() => carouselRef.current.prev()} className={classNames(homeStyles.carousel_control, homeStyles.carousel_control_left)}>
-            <Icon type="icon-enter" rotate={180} iconfont/>
+            <Icon type="icon-enter" rotate={180}/>
           </span>
           <span onClick={() => carouselRef.current.next()} className={classNames(homeStyles.carousel_control, homeStyles.carousel_control_right)}>
-            <Icon type="icon-enter" iconfont/>
+            <Icon type="icon-enter"/>
           </span>
+        </ScaleBox>
         </Col>
         <Col xs={24} sm={24} md={8}>
           <h3 className={homeStyles.opensource_title}>精选开源</h3>
-          <div className={homeStyles.opensource_recommend}>
-            <div className={homeStyles.opensource_item}>
-              <img className={homeStyles.opensource_img} src="3.jpg"/>
-              <div className={homeStyles.img_mask}></div>
+          <ScaleBox className={homeStyles.opensource}>
+            <div className={homeStyles.opensource_recommend}>
+              <div className={homeStyles.opensource_item}>
+                <img className={homeStyles.opensource_img} src="3.jpg"/>
+                <div className={homeStyles.img_mask}></div>
+              </div>
+              <div className={homeStyles.opensource_item}>
+                <img className={homeStyles.opensource_img} src="4.jpg"/>
+                <div className={homeStyles.img_mask}></div>
+              </div>
             </div>
-            <div className={homeStyles.opensource_item}>
-              <img className={homeStyles.opensource_img} src="4.jpg"/>
-              <div className={homeStyles.img_mask}></div>
-            </div>
-          </div>
+          </ScaleBox>
         </Col>
       </Row>
       <Row className={commonStyles.page}>
@@ -244,58 +282,66 @@ const Home: React.FC<HomeProps> = (props) => {
               </List.Item>
             )}
           />
-          <List
-            itemLayout="vertical"
-            className={classNames(commonStyles.box, 'common-list', 'blog-list')}
-            header={
-              <Tabs defaultActiveKey={blogKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/blog" passHref><a>更多</a></Link>}>
-                {
-                  blogCategories.map(item => (
-                    <Tabs.TabPane tab={item.tab} key={item.key} />
-                  ))
-                }
-              </Tabs>
-            }
-            dataSource={postList}
-            renderItem={
-              post => (
-                <List.Item
-                  key={post.id}
-                  extra={
-                    <div className={commonStyles.blog_cover}>
-                      <img src={post.cover_img} alt={post.title}/>
-                    </div>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={handleLoadMore}
+            hasMore={true}
+          >
+            <List
+              loading={blogLoading}
+              itemLayout="vertical"
+              className={classNames(commonStyles.box, 'common-list', 'blog-list')}
+              header={
+                <Tabs defaultActiveKey={blogKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/blog" passHref><a>更多</a></Link>}>
+                  {
+                    blogCategories.map(item => (
+                      <Tabs.TabPane tab={item.tab} key={item.key} />
+                    ))
                   }
-                  actions={[
-                    <IconText icon="FireOutlined" text={post.read} />,
-                    <IconText icon="HeartOutlined" text={post.star} />,
-                  ]}
-                >
-                  <List.Item.Meta
-                    title={
-                      <>
-                        <Tag color="blue">{post.category}</Tag>
-                        {post.title}
-                      </>
-                    } 
-                    description={
-                      <>
-                        <div style={{padding: '0.25rem 0'}}>
-                          <Space>
-                            <IconText icon="UserOutlined" text={post.author} />
-                            <IconText icon="icon-date" iconfont text={post.public_date} />
-                          </Space>
-                        </div>
-                        {post.description}
-                      </>
-                    } />
-                </List.Item>
-              )
-            }
-            locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
-          />
+                </Tabs>
+              }
+              dataSource={postList}
+              renderItem={
+                post => (
+                  <List.Item
+                    key={post.id}
+                    extra={
+                      <div className={commonStyles.blog_cover}>
+                        <img src={post.cover_img} alt={post.title}/>
+                      </div>
+                    }
+                    actions={[
+                      <IconText icon="FireOutlined" text={post.read} />,
+                      <IconText icon="HeartOutlined" text={post.star} />,
+                    ]}
+                  >
+                    <List.Item.Meta
+                      title={
+                        <>
+                          <Tag color="blue">{post.category}</Tag>
+                          {post.title}
+                        </>
+                      } 
+                      description={
+                        <>
+                          <div style={{padding: '0.25rem 0'}}>
+                            <Space>
+                              <IconText icon="UserOutlined" text={post.author} />
+                              <IconText icon="icon-date" text={post.public_date} />
+                            </Space>
+                          </div>
+                          {post.description}
+                        </>
+                      } />
+                  </List.Item>
+                )
+              }
+              locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
+            />
+          </InfiniteScroll>
         </Col>
         <Col xs={0} sm={0} md={6}>
+          <Affix offsetTop={64}>
           <div className={classNames(commonStyles.right_box, commonStyles.author_info)}>
             <Avatar src={author.avatar} size={96} />
             <h4 style={{marginTop: '12px'}}>{author.username}</h4>
@@ -308,12 +354,12 @@ const Home: React.FC<HomeProps> = (props) => {
             <Space style={{fontSize: '1.2rem'}}>
               {
                 author.contact.map(item => (
-                  <Icon type={item.icon}/>
+                  <Icon key={item.channel} type={item.icon}/>
                 ))
               }
             </Space>
           </div>
-          
+          </Affix>
         </Col>
       </Row>
     </>

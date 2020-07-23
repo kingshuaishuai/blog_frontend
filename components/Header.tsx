@@ -28,9 +28,9 @@ const MenuComp: React.FC<MenuCompProps> = (props) => {
   return (
     <Menu overflowedIndicator={<Icon type="MenuOutlined" />} defaultSelectedKeys={[defaultKey]} className={classes} mode={mode}>
       <Menu.Item key={menuKeys.HOME}><Link href="/" passHref><a><Icon type="HomeOutlined"/>首页</a></Link></Menu.Item>
-      <Menu.Item key={menuKeys.BLOG}><Link href="/blog" passHref><a><Icon type="icon-blog" iconfont />博客</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.BLOG}><Link href="/blog" passHref><a><Icon type="icon-blog" />博客</a></Link></Menu.Item>
       <Menu.Item key={menuKeys.COLUMN}><Link href="/column" passHref><a><Icon type="ReadOutlined" />专栏</a></Link></Menu.Item>
-      <Menu.Item key={menuKeys.OPEN_SOURCE}><Link href="/open-source" passHref><a><Icon type="icon-repository" iconfont />开源项目</a></Link></Menu.Item>
+      <Menu.Item key={menuKeys.OPEN_SOURCE}><Link href="/open-source" passHref><a><Icon type="icon-repository" />开源项目</a></Link></Menu.Item>
       <Menu.Item key={menuKeys.ABOUT}><Link href="/about" passHref><a><Icon type="InfoCircleOutlined" />关于</a></Link></Menu.Item>
     </Menu>
   )

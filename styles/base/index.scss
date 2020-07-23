@@ -6,26 +6,3 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
-// carousel走马灯dot选择器
-.ant-carousel {
-  .carousel_dots {
-    li {
-      width: 2rem;
-      margin-right: 0.5rem;
-      button {
-        width: 2rem;
-        height: 0.5rem;
-        border-radius: 0.25rem;
-      }
-    }
-    .slick-active {
-      width: 2.5rem!important;
-      button {
-        width: 2.5rem;
-        height: 0.5rem;
-        border-radius: 0.25rem;
-      }
-    }
-  }
-}

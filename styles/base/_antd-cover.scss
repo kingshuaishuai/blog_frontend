@@ -1,4 +1,40 @@
 @import './variables';
+// carousel走马灯dot选择器
+.ant-carousel {
+  height: 100%;
+  .slick-list {
+    height: 100%;
+    .slick-track {
+      height: 100%;
+      .slick-slide {
+        height: 100%;
+        &>div {
+          height: 100%;
+        }
+      }
+    }
+  }
+  .carousel_dots {
+    li {
+      width: 2rem;
+      margin-right: 0.5rem;
+      button {
+        width: 2rem;
+        height: 0.5rem;
+        border-radius: 0.25rem;
+      }
+    }
+    .slick-active {
+      width: 2.5rem!important;
+      button {
+        width: 2.5rem;
+        height: 0.5rem;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}
+
 .unordered_popover {
   .ant-popover-inner-content {
     padding: 0 !important;

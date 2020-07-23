@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Header, { MenuKeys } from '@/components/Header';
+import { Affix } from 'antd';
 import 'antd/dist/antd.css';
 import '@/styles/base/index.scss';
 import { navRoutes } from '@/utils/helper';
@@ -15,7 +16,7 @@ const App: React.FC<AppProps> = (props) => {
   console.log('baseRoute is: ', baseRoute);
   return (
     <>
-      {navRoutes.includes(baseRoute) && <Header defaultKey={baseRoute as MenuKeys} />}
+      {navRoutes.includes(baseRoute) && <Affix offsetTop={0}><Header defaultKey={baseRoute as MenuKeys} /></Affix>}
       <main className="main-area">
         <Component {...pageProps} />
       </main>
