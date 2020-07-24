@@ -26,7 +26,7 @@ const MenuComp: React.FC<MenuCompProps> = (props) => {
   const { defaultKey, mode, className } = props;
   const classes = classNames(className, headerStyles.menu)
   return (
-    <Menu overflowedIndicator={<Icon type="MenuOutlined" />} defaultSelectedKeys={[defaultKey]} className={classes} mode={mode}>
+    <Menu overflowedIndicator={<Icon type="MenuOutlined" />} selectedKeys={[defaultKey]} defaultSelectedKeys={[defaultKey]} className={classes} mode={mode}>
       <Menu.Item key={menuKeys.HOME}><Link href="/" passHref><a><Icon type="HomeOutlined"/>首页</a></Link></Menu.Item>
       <Menu.Item key={menuKeys.BLOG}><Link href="/blog" passHref><a><Icon type="icon-blog" />博客</a></Link></Menu.Item>
       <Menu.Item key={menuKeys.COLUMN}><Link href="/column" passHref><a><Icon type="ReadOutlined" />专栏</a></Link></Menu.Item>

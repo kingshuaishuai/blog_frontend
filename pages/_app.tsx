@@ -13,7 +13,6 @@ const App: React.FC<AppProps> = (props) => {
   if (baseRoute === '') {
     baseRoute = 'home';
   }
-  console.log('baseRoute is: ', baseRoute);
   return (
     <>
       {navRoutes.includes(baseRoute) && <Affix offsetTop={0}><Header defaultKey={baseRoute as MenuKeys} /></Affix>}

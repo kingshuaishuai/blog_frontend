@@ -1,31 +1,23 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Carousel, List, Empty, Row, Col, Radio, Card, Tabs, Avatar, Tag, Space, Divider, Affix } from 'antd';
+import { Carousel, List, Empty, Row, Col, Affix } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import classNames from 'classnames';
 import Icon from '@/components/Icon';
 import homeStyles from '../styles/pages/home.module.scss';
 import commonStyles from '@/styles/common/common.module.scss';
-import { useRef, useState, CSSProperties } from 'react';
-import { StringifyOptions } from 'querystring';
+import { useRef, useState } from 'react';
 import ScaleBox from '@/components/ScaleBox';
-
-type HomeProps = {
-
-}
-
-const IconText: React.FC<{icon: string, text: string | number, className?: string, style?: CSSProperties}> = ({icon, text, style, className, iconfont}) => (
-  <Space style={style} className={className}>
-    <Icon type={icon}/>
-    {text}
-  </Space>
-);
+import ListHeader from '@/components/ListHeader';
+import ColumnListItem from '@/components/ColumnListItem';
+import PostListItem from '@/components/PostListItem';
+import AuthorCard from '@/components/AuthorCard';
 
 type CarouselItemProps = {
   img: string;
   link: string;
   info?: {
-    title: StringifyOptions;
+    title: string;
     description: string;
   }
 }
@@ -48,7 +40,7 @@ const CarouselItem: React.FC<CarouselItemProps> = (props) => {
   )
 }
 
-const Home: React.FC<HomeProps> = (props) => {
+const Home: React.FC<{}> = (props) => {
   const carouselRef = useRef<Carousel>();
 
   const columnList = [
@@ -218,7 +210,7 @@ const Home: React.FC<HomeProps> = (props) => {
         <ScaleBox className={homeStyles.carousel_wrapper}>
           <Carousel ref={carouselRef} className={homeStyles.carousel}  dots={{className: 'carousel_dots'}} easing="ease-in-out">
             {
-              banners.map(banner => <CarouselItem key={banner.id} img={banner.img} link={banner.link} info={banner.info || null}/>)
+              banners.map(banner => <CarouselItem key={banner.id} img={banner.img} link={banner.link} info={banner.info}/>)
             }
           </Carousel>
           <span onClick={() => carouselRef.current.prev()} className={classNames(homeStyles.carousel_control, homeStyles.carousel_control_left)}>
@@ -252,35 +244,10 @@ const Home: React.FC<HomeProps> = (props) => {
             dataSource={columnList}
             className={classNames(commonStyles.box, 'common-list', 'column-list')}
             header={
-              <Tabs defaultActiveKey={columnKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/column" passHref><a>更多</a></Link>}>
-                {
-                  columnCategories.map(item => (
-                    <Tabs.TabPane tab={item.tab} key={item.key} />
-                  ))
-                }
-              </Tabs>
+              <ListHeader categories={columnCategories} extraLink="/column" onChange={handleColumnChange} defaultKey={columnKey}/>
             }
             locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
-            renderItem={column => (
-              <List.Item
-                key={column.id}
-                extra={
-                  <div className={commonStyles.column_cover}>
-                    <img src={column.cover_img} alt={column.title} />
-                  </div>
-                }
-              >
-                <List.Item.Meta 
-                  title={column.title}
-                  description={
-                    <>
-                      <IconText style={{ marginBottom: '0.25rem' }} icon="UserOutlined" text={column.author}></IconText>
-                      <div>{column.description}</div>
-                    </>
-                  }
-                />
-              </List.Item>
-            )}
+            renderItem={column => <ColumnListItem key={column.id} column={column}/>}
           />
           <InfiniteScroll
             pageStart={0}
@@ -292,49 +259,11 @@ const Home: React.FC<HomeProps> = (props) => {
               itemLayout="vertical"
               className={classNames(commonStyles.box, 'common-list', 'blog-list')}
               header={
-                <Tabs defaultActiveKey={blogKey} onChange={handleColumnChange} tabBarExtraContent={<Link href="/blog" passHref><a>更多</a></Link>}>
-                  {
-                    blogCategories.map(item => (
-                      <Tabs.TabPane tab={item.tab} key={item.key} />
-                    ))
-                  }
-                </Tabs>
+                <ListHeader categories={blogCategories} extraLink="/blog" onChange={handleColumnChange} defaultKey={blogKey}/>
               }
               dataSource={postList}
               renderItem={
-                post => (
-                  <List.Item
-                    key={post.id}
-                    extra={
-                      <div className={commonStyles.blog_cover}>
-                        <img src={post.cover_img} alt={post.title}/>
-                      </div>
-                    }
-                    actions={[
-                      <IconText icon="FireOutlined" text={post.read} />,
-                      <IconText icon="HeartOutlined" text={post.star} />,
-                    ]}
-                  >
-                    <List.Item.Meta
-                      title={
-                        <>
-                          <Tag color="blue">{post.category}</Tag>
-                          {post.title}
-                        </>
-                      } 
-                      description={
-                        <>
-                          <div style={{padding: '0.25rem 0'}}>
-                            <Space>
-                              <IconText icon="UserOutlined" text={post.author} />
-                              <IconText icon="icon-date" text={post.public_date} />
-                            </Space>
-                          </div>
-                          {post.description}
-                        </>
-                      } />
-                  </List.Item>
-                )
+                post => <PostListItem key={post.id} post={post}/>
               }
               locale={{emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据"/>}}
             />
@@ -342,23 +271,7 @@ const Home: React.FC<HomeProps> = (props) => {
         </Col>
         <Col xs={0} sm={0} md={6}>
           <Affix offsetTop={64}>
-          <div className={classNames(commonStyles.right_box, commonStyles.author_info)}>
-            <Avatar src={author.avatar} size={96} />
-            <h4 style={{marginTop: '12px'}}>{author.username}</h4>
-            <p style={{textAlign: 'center', color: '#999'}}>{author.description}</p>
-            <Space className={commonStyles.tags}>
-              <Icon type="TagsOutlined" />
-              {author.tags.map(tag => <Tag key={tag.value} color={tag.color}>{tag.value}</Tag>)}
-            </Space>
-            <Divider>联系方式</Divider>
-            <Space style={{fontSize: '1.2rem'}}>
-              {
-                author.contact.map(item => (
-                  <Icon key={item.channel} type={item.icon}/>
-                ))
-              }
-            </Space>
-          </div>
+            <AuthorCard author={author}/>
           </Affix>
         </Col>
       </Row>
