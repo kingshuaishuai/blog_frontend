@@ -1,0 +1,142 @@
+@import '../base/variables';
+
+.banner {
+  margin-top: 1rem;
+}
+
+.opensource_title {
+  display: none;
+  margin: 0.5em 0;
+  padding-left: 0.5rem;
+}
+.opensource {
+  padding-bottom: 100% !important;
+  .opensource_recommend {
+    height: 100%;
+    padding-left: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    .opensource_item {
+      @include fixIOSBorderRadius();
+      border-radius: 0.5rem;
+      flex: 1;
+      overflow: hidden;
+      cursor: pointer;
+      .opensource_img {
+        width: 100%;
+        transition-duration: 0.3s;
+      }
+      &:first-child {
+        margin-bottom: 0.5rem;
+      }
+      .img_mask {
+        @include common-mask();
+        display: block;
+        opacity: 0;
+        transition-duration: 0.3s;
+        &:hover {
+          opacity: 1;
+        }
+      }
+      &:hover {
+        .opensource_img {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+.carousel_wrapper {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  @include fixIOSBorderRadius();
+  .carousel {
+    height: 100%;
+    .carousel_item {
+      height: 100%;
+      position: relative;
+      .carousel_img {
+        width: 100%;
+        min-height: 100%;
+      }
+      .carousel_info {
+        @include common-mask();
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem;
+        .carousel_title {
+          color: #fff;
+          font-size: 1.5rem;
+        }
+        .carousel_desc {
+          color: #fff;
+          font-size: 0.875rem;
+          @include multi-line-ellipsis();
+        }
+      }
+    }
+  }
+  .carousel_control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .3);
+    opacity: 0;
+    transition-duration: 0.3s;
+  }
+  .carousel_control_left {
+    left: 0;
+  }
+  .carousel_control_right {
+    right: 0;
+  }
+  &:hover {
+    .carousel_control {
+      opacity: 1;
+    }
+  }
+}
+
+.sidebar {
+  background-color: #fff;
+  border-radius: 0.25rem;
+}
+
+@media only screen and (max-width: 1200px) {
+}
+
+@media only screen and (max-width: 767.9px) {
+  .banner {
+    margin-top: 0.5rem;
+  }
+  .carousel_control {
+    display: none;
+  }
+  .opensource_title {
+    display: block;
+  }
+  .opensource {
+    padding-bottom: 25% !important;
+    .opensource_recommend {
+      height: 100%;
+      flex-direction: row;
+      padding: 0;
+      .opensource_item:first-child {
+        margin: 0 0.5rem 0 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .carousel_desc {
+    display: block;
+    @include ellipsis();
+  }
+}
